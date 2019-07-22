@@ -207,4 +207,17 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
+task bundleReactNative(type: Exec) {
+    println 'bundling latest react native code'
+    workingDir "../../../ospreymobile"
+//    commandLine 'cmd', '/c', 'react-native bundle --platform android --dev false --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res'
+    commandLine 'sh', '-c', 'react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res'
+}
+
+afterEvaluate {
+    android.applicationVariants.all { variant ->
+        variant.javaCompiler.dependsOn(bundleReactNative)
+    }
+}
+
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
