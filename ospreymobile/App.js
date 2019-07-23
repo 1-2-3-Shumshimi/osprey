@@ -13,35 +13,63 @@ import {
 import { createBottomTabNavigator, createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import Browse from './pages/Browse';
+import BrowseDetails from './pages/BrowseDetails';
 import WatchParties from './pages/WatchParties';
+import WatchPartiesDetails from './pages/WatchPartiesDetails';
 import HostParties from './pages/HostParties';
+import HostPartiesDetails from './pages/HostPartiesDetails';
 import Profile from './pages/Profile';
 
+const BrowseStackNavigator = createStackNavigator({
+  Browse: {screen: Browse},
+  BrowseDetails: {screen: BrowseDetails},
+},{
+  initialRouteName: 'Browse',
+  headerMode: 'none',
+});
+
+const WatchPartiesStackNavigator = createStackNavigator({
+  WatchParties: {screen: WatchParties},
+  WatchPartiesDetails: {screen: WatchPartiesDetails},
+  //WatchPartiesChat: {screen: WatchPartiesChat}
+},{
+  initialRouteName: 'WatchParties',
+  headerMode: 'none',
+});
+
+const HostPartiesStackNavigator = createStackNavigator({
+  HostParties: {screen: HostParties},
+  HostPartiesDetails: {screen: HostPartiesDetails},
+  //WatchPartiesChat: {screen: WatchPartiesChat}
+},{
+  initialRouteName: 'HostParties',
+  headerMode: 'none',
+});
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Browse: {
-      screen: Browse,
+    BrowseTab: {
+      screen: BrowseStackNavigator,
       navigationOptions: {
         tabBarLabel: "Browse",
         tabBarIcon: (({tintColor})=>(<Icon name="ios-tv" size={30} color={tintColor}/>)),
       }
     },
-    WatchParties: {
-      screen: WatchParties,
+    WatchPartiesTab: {
+      screen: WatchPartiesStackNavigator,
       navigationOptions: {
         tabBarLabel: "Events",
         tabBarIcon: (({tintColor})=>(<Icon name="ios-contacts" size={30} color={tintColor}/>)),
       }
     },
-    HostParties: {
-      screen: HostParties,
+    HostPartiesTab: {
+      screen: HostPartiesStackNavigator,
       navigationOptions: {
         tabBarLabel: "Your Events",
         tabBarIcon: (({tintColor})=>(<Icon name="ios-calendar" size={30} color={tintColor}/>)),
       }
     },
-    Profile: {
+    ProfileTab: {
       screen: Profile,
       navigationOptions: {
         tabBarLabel: "Profile",
