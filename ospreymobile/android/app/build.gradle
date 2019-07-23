@@ -188,7 +188,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
@@ -220,5 +219,6 @@ afterEvaluate {
         variant.javaCompiler.dependsOn(bundleReactNative)
     }
 }
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

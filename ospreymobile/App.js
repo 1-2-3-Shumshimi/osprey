@@ -1,4 +1,5 @@
-
+//import Icon from 'react-native-ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import {
   SafeAreaView,
@@ -19,13 +20,45 @@ import Profile from './pages/Profile';
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Browse: Browse,
-    WatchParties: WatchParties,
-    HostParties: HostParties,
-    Profile: Profile
+    Browse: {
+      screen: Browse,
+      navigationOptions: {
+        tabBarLabel: "Browse",
+        tabBarIcon: (({tintColor})=>(<Icon name="ios-tv" size={30} color={tintColor}/>)),
+      }
+    },
+    WatchParties: {
+      screen: WatchParties,
+      navigationOptions: {
+        tabBarLabel: "Events",
+        tabBarIcon: (({tintColor})=>(<Icon name="ios-contacts" size={30} color={tintColor}/>)),
+      }
+    },
+    HostParties: {
+      screen: HostParties,
+      navigationOptions: {
+        tabBarLabel: "Your Events",
+        tabBarIcon: (({tintColor})=>(<Icon name="ios-calendar" size={30} color={tintColor}/>)),
+      }
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        tabBarLabel: "Profile",
+        tabBarIcon: (({tintColor})=>(<Icon name="ios-person" size={30} color={tintColor}/>)),
+      }
+    },
   },
   {
-  }
+    tabBarOptions: {
+      showIcon: true,
+      activeTintColor: 'black',
+      inactiveTintColor: 'gray',
+      style: {
+        backgroundColor: 'white',
+      }
+    },
+  },
 );
 
 const Navigation = createAppContainer(createSwitchNavigator(
