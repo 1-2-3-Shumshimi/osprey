@@ -12,18 +12,21 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.activities
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import com.example.ospreytv.fragments.PlaybackVideoFragment
 
-/**
- * Loads [MainFragment].
- */
-class MainActivity : Activity() {
+/** Loads [PlaybackVideoFragment]. */
+class PlaybackActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(android.R.id.content, PlaybackVideoFragment())
+                .commit()
+        }
     }
 }

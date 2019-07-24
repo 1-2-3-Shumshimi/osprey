@@ -12,20 +12,24 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.activities
 
-import androidx.leanback.widget.AbstractDetailsDescriptionPresenter
+import android.app.Activity
+import android.os.Bundle
+import com.example.ospreytv.R
 
-class DetailsDescriptionPresenter : AbstractDetailsDescriptionPresenter() {
+/**
+ * Details activity class that loads [VideoDetailsFragment] class.
+ */
+class DetailsActivity : Activity() {
 
-    override fun onBindDescription(
-        viewHolder: AbstractDetailsDescriptionPresenter.ViewHolder,
-        item: Any
-    ) {
-        val movie = item as Movie
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_details)
+    }
 
-        viewHolder.title.text = movie.title
-        viewHolder.subtitle.text = movie.studio
-        viewHolder.body.text = movie.description
+    companion object {
+        const val SHARED_ELEMENT_NAME = "hero"
+        const val MOVIE = "Movie"
     }
 }

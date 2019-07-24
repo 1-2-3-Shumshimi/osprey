@@ -12,20 +12,21 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.viewPresenters
 
-import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
+import androidx.leanback.widget.AbstractDetailsDescriptionPresenter
+import com.example.ospreytv.models.Movie
 
-/** Loads [PlaybackVideoFragment]. */
-class PlaybackActivity : FragmentActivity() {
+class DetailsDescriptionPresenter : AbstractDetailsDescriptionPresenter() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(android.R.id.content, PlaybackVideoFragment())
-                .commit()
-        }
+    override fun onBindDescription(
+        viewHolder: AbstractDetailsDescriptionPresenter.ViewHolder,
+        item: Any
+    ) {
+        val movie = item as Movie
+
+        viewHolder.title.text = movie.title
+        viewHolder.subtitle.text = movie.studio
+        viewHolder.body.text = movie.description
     }
 }

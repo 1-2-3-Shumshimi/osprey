@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.fragments
 
 import java.util.Collections
 import java.util.Timer
@@ -48,6 +48,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.example.ospreytv.*
+import com.example.ospreytv.activities.BrowseErrorActivity
+import com.example.ospreytv.activities.DetailsActivity
+import com.example.ospreytv.activities.WatchPartyScheduleActivity
+import com.example.ospreytv.data.MovieList
+import com.example.ospreytv.data.WatchPartyList
+import com.example.ospreytv.models.Movie
+import com.example.ospreytv.viewPresenters.CardPresenter
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -97,29 +105,17 @@ class MainFragment : BrowseFragment() {
 
         // set fastLane (or headers) background color
         brandColor = ContextCompat.getColor(activity, R.color.fastlane_background)
-        // set search icon color
-        searchAffordanceColor = ContextCompat.getColor(activity, R.color.search_opaque)
     }
 
     private fun loadRows() {
-        val list = MovieList.list
+        val browseList = MovieList.list
+        val hostList = WatchPartyList.list
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
         val cardPresenter = CardPresenter()
 
-        for (i in 0 until NUM_ROWS) {
-            if (i != 0) {
-                Collections.shuffle(list)
-            }
-            val listRowAdapter = ArrayObjectAdapter(cardPresenter)
-            for (j in 0 until NUM_COLS) {
-                listRowAdapter.add(list[j % 5])
-            }
-            val header = HeaderItem(i.toLong(), MovieList.MOVIE_CATEGORY[i])
-            rowsAdapter.add(ListRow(header, listRowAdapter))
-        }
-
-        val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
+        // User preferences
+        val gridHeader = HeaderItem(0, "Preferences")
 
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
@@ -128,15 +124,28 @@ class MainFragment : BrowseFragment() {
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
         rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
 
+        // Browse list
+        Collections.shuffle(browseList)
+        val listRowAdapter1 = ArrayObjectAdapter(cardPresenter)
+        for (j in 0 until NUM_COLS) {
+            listRowAdapter1.add(browseList[j % 5])
+        }
+        val header = HeaderItem(0, MovieList.MOVIE_CATEGORY[0])
+        rowsAdapter.add(ListRow(header, listRowAdapter1))
+
+
+        // Watch Parties
+        val hostHeader = HeaderItem(NUM_ROWS.toLong(), "Watch Parties")
+        val listRowAdapter = ArrayObjectAdapter(cardPresenter)
+        for (j in 0 until NUM_COLS) {
+            listRowAdapter.add(hostList[j % 6])
+        }
+        rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
+
         adapter = rowsAdapter
     }
 
     private fun setupEventListeners() {
-        setOnSearchClickedListener {
-            Toast.makeText(activity, "Implement your own in-app search", Toast.LENGTH_LONG)
-                .show()
-        }
-
         onItemViewClickedListener = ItemViewClickedListener()
         onItemViewSelectedListener = ItemViewSelectedListener()
     }
@@ -150,17 +159,23 @@ class MainFragment : BrowseFragment() {
         ) {
 
             if (item is Movie) {
-                Log.d(TAG, "Item: " + item.toString())
-                val intent = Intent(activity, DetailsActivity::class.java)
-                intent.putExtra(DetailsActivity.MOVIE, item)
+                if(item.title.equals("SEE ALL")){
+                    //start monthly view activity
+                    val intent = Intent(activity, WatchPartyScheduleActivity::class.java)
+                    activity.startActivity(intent)
+                } else {
+                    Log.d(TAG, "Item: " + item.toString())
+                    val intent = Intent(activity, DetailsActivity::class.java)
+                    intent.putExtra(DetailsActivity.MOVIE, item)
 
-                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    activity,
-                    (itemViewHolder.view as ImageCardView).mainImageView,
-                    DetailsActivity.SHARED_ELEMENT_NAME
-                )
-                    .toBundle()
-                activity.startActivity(intent, bundle)
+                    val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        activity,
+                        (itemViewHolder.view as ImageCardView).mainImageView,
+                        DetailsActivity.SHARED_ELEMENT_NAME
+                    )
+                        .toBundle()
+                    activity.startActivity(intent, bundle)
+                }
             } else if (item is String) {
                 if (item.contains(getString(R.string.error_fragment))) {
                     val intent = Intent(activity, BrowseErrorActivity::class.java)
@@ -219,7 +234,10 @@ class MainFragment : BrowseFragment() {
     private inner class GridItemPresenter : Presenter() {
         override fun onCreateViewHolder(parent: ViewGroup): Presenter.ViewHolder {
             val view = TextView(parent.context)
-            view.layoutParams = ViewGroup.LayoutParams(GRID_ITEM_WIDTH, GRID_ITEM_HEIGHT)
+            view.layoutParams = ViewGroup.LayoutParams(
+                GRID_ITEM_WIDTH,
+                GRID_ITEM_HEIGHT
+            )
             view.isFocusable = true
             view.isFocusableInTouchMode = true
             view.setBackgroundColor(ContextCompat.getColor(activity, R.color.default_background))
@@ -241,7 +259,7 @@ class MainFragment : BrowseFragment() {
         private val BACKGROUND_UPDATE_DELAY = 300
         private val GRID_ITEM_WIDTH = 200
         private val GRID_ITEM_HEIGHT = 200
-        private val NUM_ROWS = 6
-        private val NUM_COLS = 15
+        private val NUM_ROWS = 2
+        private val NUM_COLS = 6
     }
 }

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.models
 
 import java.io.Serializable
 

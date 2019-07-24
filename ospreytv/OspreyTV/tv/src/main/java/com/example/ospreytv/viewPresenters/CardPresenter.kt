@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.viewPresenters
 
 import android.graphics.drawable.Drawable
 import androidx.leanback.widget.ImageCardView
@@ -22,6 +22,8 @@ import android.util.Log
 import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
+import com.example.ospreytv.R
+import com.example.ospreytv.models.Movie
 import kotlin.properties.Delegates
 
 /**
@@ -36,8 +38,12 @@ class CardPresenter : Presenter() {
     override fun onCreateViewHolder(parent: ViewGroup): Presenter.ViewHolder {
         Log.d(TAG, "onCreateViewHolder")
 
-        sDefaultBackgroundColor = ContextCompat.getColor(parent.context, R.color.default_background)
-        sSelectedBackgroundColor = ContextCompat.getColor(parent.context, R.color.selected_background)
+        sDefaultBackgroundColor = ContextCompat.getColor(parent.context,
+            R.color.default_background
+        )
+        sSelectedBackgroundColor = ContextCompat.getColor(parent.context,
+            R.color.selected_background
+        )
         mDefaultCardImage = ContextCompat.getDrawable(parent.context, R.drawable.movie)
 
         val cardView = object : ImageCardView(parent.context) {
@@ -61,7 +67,10 @@ class CardPresenter : Presenter() {
         if (movie.cardImageUrl != null) {
             cardView.titleText = movie.title
             cardView.contentText = movie.studio
-            cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
+            cardView.setMainImageDimensions(
+                CARD_WIDTH,
+                CARD_HEIGHT
+            )
             Glide.with(viewHolder.view.context)
                 .load(movie.cardImageUrl)
                 .centerCrop()

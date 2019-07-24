@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -44,6 +44,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.example.ospreytv.*
+import com.example.ospreytv.activities.DetailsActivity
+import com.example.ospreytv.activities.MainActivity
+import com.example.ospreytv.activities.PlaybackActivity
+import com.example.ospreytv.data.MovieList
+import com.example.ospreytv.models.Movie
+import com.example.ospreytv.viewPresenters.CardPresenter
+import com.example.ospreytv.viewPresenters.DetailsDescriptionPresenter
 
 import java.util.Collections
 
@@ -103,8 +111,12 @@ class VideoDetailsFragment : DetailsFragment() {
         Log.d(TAG, "doInBackground: " + mSelectedMovie?.toString())
         val row = DetailsOverviewRow(mSelectedMovie)
         row.imageDrawable = ContextCompat.getDrawable(activity, R.drawable.default_background)
-        val width = convertDpToPixel(activity, DETAIL_THUMB_WIDTH)
-        val height = convertDpToPixel(activity, DETAIL_THUMB_HEIGHT)
+        val width = convertDpToPixel(activity,
+            DETAIL_THUMB_WIDTH
+        )
+        val height = convertDpToPixel(activity,
+            DETAIL_THUMB_HEIGHT
+        )
         Glide.with(activity)
             .load(mSelectedMovie?.cardImageUrl)
             .centerCrop()

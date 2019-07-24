@@ -1,3 +1,7 @@
+package com.example.ospreytv.data
+
+import com.example.ospreytv.models.Movie
+
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -12,16 +16,10 @@
  * the License.
  */
 
-package com.example.ospreytv
-
-object MovieList {
+object WatchPartyList {
     val MOVIE_CATEGORY = arrayOf(
-        "Category Zero",
-        "Category One",
-        "Category Two",
-        "Category Three",
-        "Category Four",
-        "Category Five"
+        "Browse",
+        "Watch Parties"
     )
 
     val list: List<Movie> by lazy {
@@ -31,6 +29,7 @@ object MovieList {
 
     private fun setupMovies(): List<Movie> {
         val title = arrayOf(
+            "SEE ALL",
             "Zeitgeist 2010_ Year in Review",
             "Google Demo Slam_ 20ft Search",
             "Introducing Gmail Blue",
@@ -38,13 +37,20 @@ object MovieList {
             "Introducing Google Nose"
         )
 
-        val description = "Fusce id nisi turpis. Praesent viverra bibendum semper. " +
+        val description = arrayOf( "",
+            "Fusce id nisi turpis. Praesent viverra bibendum semper. " +
                 "Donec tristique, orci sed semper lacinia, quam erat rhoncus massa, non congue tellus est " +
                 "quis tellus. Sed mollis orci venenatis quam scelerisque accumsan. Curabitur a massa sit " +
                 "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit " +
                 "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id " +
-                "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat."
+                "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat.",
+            "",
+            "",
+            "",
+            ""
+        )
         val studio = arrayOf(
+            "",
             "Studio Zero",
             "Studio One",
             "Studio Two",
@@ -52,6 +58,7 @@ object MovieList {
             "Studio Four"
         )
         val videoUrl = arrayOf(
+            "",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review.mp4",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search.mp4",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue.mp4",
@@ -59,6 +66,7 @@ object MovieList {
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose.mp4"
         )
         val bgImageUrl = arrayOf(
+            "",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/bg.jpg",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/bg.jpg",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/bg.jpg",
@@ -66,6 +74,7 @@ object MovieList {
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/bg.jpg"
         )
         val cardImageUrl = arrayOf(
+            "",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/card.jpg",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/card.jpg",
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/card.jpg",
@@ -73,18 +82,16 @@ object MovieList {
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/card.jpg"
         )
 
-        val list = title.indices.map {
+        return title.indices.map {
             buildMovieInfo(
                 title[it],
-                description,
+                description[it],
                 studio[it],
                 videoUrl[it],
                 cardImageUrl[it],
                 bgImageUrl[it]
             )
         }
-
-        return list
     }
 
     private fun buildMovieInfo(

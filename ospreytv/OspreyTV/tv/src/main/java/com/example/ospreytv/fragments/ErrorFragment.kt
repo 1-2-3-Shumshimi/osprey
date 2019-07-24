@@ -11,11 +11,12 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.example.ospreytv
+package com.example.ospreytv.fragments
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import android.view.View
+import com.example.ospreytv.R
 
 /**
  * This class demonstrates how to extend [androidx.leanback.app.ErrorFragment].

@@ -12,23 +12,20 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.activities
 
 import android.app.Activity
 import android.os.Bundle
+import com.example.ospreytv.R
+import com.example.ospreytv.services.OspreyService
 
 /**
- * Details activity class that loads [VideoDetailsFragment] class.
+ * Loads [MainFragment].
  */
-class DetailsActivity : Activity() {
+class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
-    }
-
-    companion object {
-        const val SHARED_ELEMENT_NAME = "hero"
-        const val MOVIE = "Movie"
+        setContentView(R.layout.activity_main)
     }
 }
