@@ -32,10 +32,14 @@ class FirebaseSvc {
   }
 
   refOn = callback => {
-    this.ref
+    this.ref()
       .limitToLast(20)
       .on('child_added', snapshot => callback(this.parse(snapshot)));
   };
+
+  refOff() {
+    this.ref().off();
+  }
 
   timestamp(){
     return firebase.database.ServerValue.TIMESTAMP;
@@ -47,9 +51,9 @@ class FirebaseSvc {
       const message = {
         text,
         user,
-        createdAt: this.timestamp,
+        createdAt: this.timestamp(),
       };
-      this.ref.push(message);
+      this.ref().push(message);
     }
   };
 

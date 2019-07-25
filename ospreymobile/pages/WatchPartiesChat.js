@@ -14,8 +14,8 @@ export default class WatchPartiesChat extends Component {
   user(){
     return{
       name: this.props.navigation.state.params.email.split("@")[0],
-      id: firebaseSvc.uid,
-      _id: firebaseSvc.uid
+      id: firebaseSvc.uid(),
+      _id: firebaseSvc.uid()
     }
   }
 
@@ -37,7 +37,7 @@ export default class WatchPartiesChat extends Component {
       <GiftedChat
         messages={this.state.messages}
         onSend={firebaseSvc.send}
-        user={this.user}
+        user={this.user()}
       />
     );
   }
