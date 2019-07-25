@@ -16,6 +16,7 @@ import Browse from './pages/Browse';
 import BrowseDetails from './pages/BrowseDetails';
 import WatchParties from './pages/WatchParties';
 import WatchPartiesDetails from './pages/WatchPartiesDetails';
+import WatchPartiesChat from './pages/WatchPartiesChat';
 import HostParties from './pages/HostParties';
 import HostPartiesDetails from './pages/HostPartiesDetails';
 import Profile from './pages/Profile';
@@ -31,7 +32,7 @@ const BrowseStackNavigator = createStackNavigator({
 const WatchPartiesStackNavigator = createStackNavigator({
   WatchParties: {screen: WatchParties},
   WatchPartiesDetails: {screen: WatchPartiesDetails},
-  //WatchPartiesChat: {screen: WatchPartiesChat}
+  WatchPartiesChat: {screen: WatchPartiesChat}
 },{
   initialRouteName: 'WatchParties',
   headerMode: 'none',
