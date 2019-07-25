@@ -48,13 +48,13 @@ export default class Profile extends Component {
           <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
             <Text>Email:</Text>
             <TextInput
-              style={{borderColor:'gray', borderWidth: 1}}
+              style={{borderColor:'gray', borderWidth: 1, width: '95%'}}
               onChangeText={this.onChangeTextEmail}
               value={this.state.email}
             />
             <Text>Password:</Text>
             <TextInput
-              style={{borderColor:'gray', borderWidth: 1}}
+              style={{borderColor:'gray', borderWidth: 1, width: '95%'}}
               secureTextEntry={true}
               onChangeText={this.onChangeTextPassword}
               value={this.state.password}
