@@ -17,7 +17,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.example.ospreytv.viewPresenters.CardPresenter
-import com.example.ospreytv.models.Movie
+import com.example.ospreytv.models.Show
 import com.example.ospreytv.R
 import com.example.ospreytv.activities.BrowseErrorActivity
 import com.example.ospreytv.activities.DetailsActivity
@@ -85,7 +85,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
             row: Row
         ) {
 
-            if (item is Movie) {
+            if (item is Show) {
                 if(item.title.equals("SEE ALL")){
                     //start monthly view activity
                     val intent = Intent(activity, WatchPartyScheduleActivity::class.java)
@@ -120,8 +120,8 @@ class WatchPartyScheduleFragment: BrowseFragment(){
             itemViewHolder: Presenter.ViewHolder?, item: Any?,
             rowViewHolder: RowPresenter.ViewHolder, row: Row
         ) {
-            if (item is Movie) {
-                mBackgroundUri = item.backgroundImageUrl
+            if (item is Show) {
+                mBackgroundUri = item.imageUrl
                 startBackgroundTimer()
             }
         }

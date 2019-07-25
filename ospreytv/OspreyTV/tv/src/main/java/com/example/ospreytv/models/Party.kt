@@ -1,3 +1,5 @@
+package com.example.ospreytv.models
+
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -11,25 +13,23 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
-package com.example.ospreytv.activities
-
-import android.app.Activity
-import android.os.Bundle
-import com.example.ospreytv.R
+import java.io.Serializable
 
 /**
- * Details activity class that loads [VideoDetailsFragment] class.
+ * Show class represents video entity with title, description, image thumbs and video url.
  */
-class DetailsActivity : Activity() {
+data class Party(
+    var id: Int? = null,
+    var showID: Int? = null,
+    var date: String? = null,
+    var time: String? = null
+) : Serializable {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+    override fun toString(): String {
+        return "Party: ID: $id, Show Id: $showID, Date: $date, Time: $time"
     }
 
     companion object {
-        const val SHARED_ELEMENT_NAME = "hero"
-        const val MOVIE = "Show"
+        internal const val serialVersionUID = 727566175075960653L
     }
 }

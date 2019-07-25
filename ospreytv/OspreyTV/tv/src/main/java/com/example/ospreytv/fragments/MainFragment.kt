@@ -14,11 +14,14 @@
 
 package com.example.ospreytv.fragments
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import java.util.Collections
 import java.util.Timer
 import java.util.TimerTask
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -43,6 +46,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
@@ -52,9 +56,9 @@ import com.example.ospreytv.*
 import com.example.ospreytv.activities.BrowseErrorActivity
 import com.example.ospreytv.activities.DetailsActivity
 import com.example.ospreytv.activities.WatchPartyScheduleActivity
-import com.example.ospreytv.data.MovieList
+import com.example.ospreytv.data.ShowList
 import com.example.ospreytv.data.WatchPartyList
-import com.example.ospreytv.models.Movie
+import com.example.ospreytv.models.Show
 import com.example.ospreytv.viewPresenters.CardPresenter
 
 /**
@@ -68,10 +72,28 @@ class MainFragment : BrowseFragment() {
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
     private var mBackgroundUri: String? = null
+    private val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+    private val cardPresenter = CardPresenter()
+    private var mlocalBroadcastReceiver = LocalBroadcastReceiver()
+
+    inner class LocalBroadcastReceiver: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val eventName = intent?.getStringExtra("Event")
+            if(eventName == "show"){
+                loadShows()
+            }
+            if(eventName == "party"){
+                loadParties()
+            }
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
         super.onActivityCreated(savedInstanceState)
+
+        val localBroadcastManager = LocalBroadcastManager.getInstance(activity.applicationContext)
+        localBroadcastManager.registerReceiver(mlocalBroadcastReceiver, IntentFilter("UpdateView"))
 
         prepareBackgroundManager()
 
@@ -108,11 +130,6 @@ class MainFragment : BrowseFragment() {
     }
 
     private fun loadRows() {
-        val browseList = MovieList.list
-        val hostList = WatchPartyList.list
-
-        val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
-        val cardPresenter = CardPresenter()
 
         // User preferences
         val gridHeader = HeaderItem(0, "Preferences")
@@ -123,24 +140,6 @@ class MainFragment : BrowseFragment() {
         gridRowAdapter.add(getString(R.string.error_fragment))
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
         rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
-
-        // Browse list
-        Collections.shuffle(browseList)
-        val listRowAdapter1 = ArrayObjectAdapter(cardPresenter)
-        for (j in 0 until NUM_COLS) {
-            listRowAdapter1.add(browseList[j % 5])
-        }
-        val header = HeaderItem(0, MovieList.MOVIE_CATEGORY[0])
-        rowsAdapter.add(ListRow(header, listRowAdapter1))
-
-
-        // Watch Parties
-        val hostHeader = HeaderItem(NUM_ROWS.toLong(), "Watch Parties")
-        val listRowAdapter = ArrayObjectAdapter(cardPresenter)
-        for (j in 0 until NUM_COLS) {
-            listRowAdapter.add(hostList[j % 6])
-        }
-        rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
 
         adapter = rowsAdapter
     }
@@ -158,7 +157,7 @@ class MainFragment : BrowseFragment() {
             row: Row
         ) {
 
-            if (item is Movie) {
+            if (item is Show) {
                 if(item.title.equals("SEE ALL")){
                     //start monthly view activity
                     val intent = Intent(activity, WatchPartyScheduleActivity::class.java)
@@ -192,8 +191,8 @@ class MainFragment : BrowseFragment() {
             itemViewHolder: Presenter.ViewHolder?, item: Any?,
             rowViewHolder: RowPresenter.ViewHolder, row: Row
         ) {
-            if (item is Movie) {
-                mBackgroundUri = item.backgroundImageUrl
+            if (item is Show) {
+                mBackgroundUri = item.imageUrl
                 startBackgroundTimer()
             }
         }
@@ -243,14 +242,14 @@ class MainFragment : BrowseFragment() {
             view.setBackgroundColor(ContextCompat.getColor(activity, R.color.default_background))
             view.setTextColor(Color.WHITE)
             view.gravity = Gravity.CENTER
-            return Presenter.ViewHolder(view)
+            return ViewHolder(view)
         }
 
-        override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
+        override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
             (viewHolder.view as TextView).text = item as String
         }
 
-        override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {}
+        override fun onUnbindViewHolder(viewHolder: ViewHolder) {}
     }
 
     companion object {
@@ -260,6 +259,27 @@ class MainFragment : BrowseFragment() {
         private val GRID_ITEM_WIDTH = 200
         private val GRID_ITEM_HEIGHT = 200
         private val NUM_ROWS = 2
-        private val NUM_COLS = 6
+    }
+
+    fun loadParties(){
+        val hostList = WatchPartyList.list
+        val hostHeader = HeaderItem(NUM_ROWS.toLong(), "Watch Parties")
+        val listRowAdapter = ArrayObjectAdapter(cardPresenter)
+        for (j in 0 until hostList.size) {
+            listRowAdapter.add(hostList[j])
+        }
+        rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
+    }
+
+    fun loadShows(){
+        val browseList = ShowList.LIST
+        // Browse LIST
+        Collections.shuffle(browseList)
+        val listRowAdapter1 = ArrayObjectAdapter(cardPresenter)
+        for (j in 0 until browseList.size) {
+            listRowAdapter1.add(browseList[j])
+        }
+        val header = HeaderItem(0, ShowList.MOVIE_CATEGORY[0])
+        rowsAdapter.add(ListRow(header, listRowAdapter1))
     }
 }

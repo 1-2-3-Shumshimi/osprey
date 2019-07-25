@@ -11,9 +11,11 @@
     <string name="rent_2">Favorites</string>
     <string name="buy_1">Buy and Own</string>
     <string name="buy_2">AT $9.99</string>
-    <string name="movie">Movie</string>
+    <string name="show">Movie</string>
 
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+
+    <string name="OsperyUrl">https://osprey-931cd.firebaseio.com/</string>
 </resources>

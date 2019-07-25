@@ -7,4 +7,4 @@ data class PartiesResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("show_id") val showId: Int,
     @SerializedName("time") val time: String
-)
+    )

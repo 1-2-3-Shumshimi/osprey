@@ -15,7 +15,7 @@
 package com.example.ospreytv.viewPresenters
 
 import androidx.leanback.widget.AbstractDetailsDescriptionPresenter
-import com.example.ospreytv.models.Movie
+import com.example.ospreytv.models.Show
 
 class DetailsDescriptionPresenter : AbstractDetailsDescriptionPresenter() {
 
@@ -23,10 +23,10 @@ class DetailsDescriptionPresenter : AbstractDetailsDescriptionPresenter() {
         viewHolder: AbstractDetailsDescriptionPresenter.ViewHolder,
         item: Any
     ) {
-        val movie = item as Movie
+        val movie = item as Show
 
         viewHolder.title.text = movie.title
-        viewHolder.subtitle.text = movie.studio
+        viewHolder.subtitle.text = movie.genre
         viewHolder.body.text = movie.description
     }
 }

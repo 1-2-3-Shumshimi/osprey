@@ -23,7 +23,7 @@ import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
 import com.example.ospreytv.R
-import com.example.ospreytv.models.Movie
+import com.example.ospreytv.models.Show
 import kotlin.properties.Delegates
 
 /**
@@ -60,19 +60,19 @@ class CardPresenter : Presenter() {
     }
 
     override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
-        val movie = item as Movie
+        val movie = item as Show
         val cardView = viewHolder.view as ImageCardView
 
         Log.d(TAG, "onBindViewHolder")
-        if (movie.cardImageUrl != null) {
+        if (movie.imageUrl != null) {
             cardView.titleText = movie.title
-            cardView.contentText = movie.studio
+            cardView.contentText = movie.genre
             cardView.setMainImageDimensions(
                 CARD_WIDTH,
                 CARD_HEIGHT
             )
             Glide.with(viewHolder.view.context)
-                .load(movie.cardImageUrl)
+                .load(movie.imageUrl)
                 .centerCrop()
                 .error(mDefaultCardImage)
                 .into(cardView.mainImageView)
