@@ -5,6 +5,8 @@ import firebaseSvc from '../src/FirebaseSvc';
 
 
 export default class Profile extends Component {
+
+
     // add state to store user input
     state = {
       email: '',
@@ -21,7 +23,8 @@ export default class Profile extends Component {
     };
     loginSuccess = () => {
       console.log('login successful, navigate to chat.');
-      this.setState({ loggedIn: true })
+      this.setState({ loggedIn: true });
+      loggedInID = this.state.email.toString();
       this.props.navigation.navigate('WatchPartiesChat', {
         name: this.state.name,
         email: this.state.email,

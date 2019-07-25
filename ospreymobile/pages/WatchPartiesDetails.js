@@ -8,7 +8,10 @@ export default class WatchPartiesDetails extends Component {
           <Text>Watch Parties DETAILS Page!</Text>
           <Button
             title="Chat"
-            onPress={() => this.props.navigation.navigate('WatchPartiesChat')}
+            onPress={() => 
+              
+              this.props.navigation.navigate('WatchPartiesChat')
+            }
           />
         </View>
       );
