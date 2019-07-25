@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +21,8 @@ import androidx.leanback.app.VideoSupportFragmentGlueHost
 import androidx.leanback.media.MediaPlayerAdapter
 import androidx.leanback.media.PlaybackTransportControlGlue
 import androidx.leanback.widget.PlaybackControlsRow
+import com.example.ospreytv.models.Show
+import com.example.ospreytv.activities.DetailsActivity
 
 /** Handles video playback with media controls. */
 class PlaybackVideoFragment : VideoSupportFragment() {
@@ -31,7 +33,7 @@ class PlaybackVideoFragment : VideoSupportFragment() {
         super.onCreate(savedInstanceState)
 
         val (_, title, description, _, _, videoUrl) =
-            activity?.intent?.getSerializableExtra(DetailsActivity.MOVIE) as Movie
+            activity?.intent?.getSerializableExtra(DetailsActivity.MOVIE) as Show
 
         val glueHost = VideoSupportFragmentGlueHost(this@PlaybackVideoFragment)
         val playerAdapter = MediaPlayerAdapter(activity)

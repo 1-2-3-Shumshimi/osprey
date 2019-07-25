@@ -12,30 +12,28 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.models
 
 import java.io.Serializable
 
 /**
- * Movie class represents video entity with title, description, image thumbs and video url.
+ * Show class represents video entity with title, description, image thumbs and video url.
  */
-data class Movie(
-    var id: Long = 0,
+data class Show(
+    var id: Int? = null,
     var title: String? = null,
     var description: String? = null,
-    var backgroundImageUrl: String? = null,
-    var cardImageUrl: String? = null,
-    var videoUrl: String? = null,
-    var studio: String? = null
+    var imageUrl: String? = null,
+    var year: String? = null,
+    var genre: String? = null
 ) : Serializable {
 
     override fun toString(): String {
-        return "Movie{" +
+        return "Show{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
-                ", backgroundImageUrl='" + backgroundImageUrl + '\'' +
-                ", cardImageUrl='" + cardImageUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", genre='" + genre + '\'' +
                 '}'
     }
 

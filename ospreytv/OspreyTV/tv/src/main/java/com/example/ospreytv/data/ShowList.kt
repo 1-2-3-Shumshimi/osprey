@@ -12,23 +12,30 @@
  * the License.
  */
 
-package com.example.ospreytv
+package com.example.ospreytv.data
 
-import android.app.Activity
-import android.os.Bundle
+import com.example.ospreytv.models.Show
+import com.example.ospreytv.models.backend.ShowsResponse
 
-/**
- * Details activity class that loads [VideoDetailsFragment] class.
- */
-class DetailsActivity : Activity() {
+object ShowList {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+    private var showList =  ArrayList<Show>()
+    val MOVIE_CATEGORY = arrayOf(
+        "Browse"
+    )
+
+    fun setupShowList(list: List<ShowsResponse>){
+        for(show in list){
+            showList.add(Show(show.id, show.title, show.description, show.imageUrl, show.year, show.genre))
+        }
     }
 
-    companion object {
-        const val SHARED_ELEMENT_NAME = "hero"
-        const val MOVIE = "Movie"
+    val LIST: List<Show> by lazy {
+        setupShows()
     }
+
+    private fun setupShows(): List<Show> {
+        return showList
+    }
+
 }
