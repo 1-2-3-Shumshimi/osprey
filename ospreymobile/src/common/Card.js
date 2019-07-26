@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
 export default Card = (props) => {
 
@@ -8,21 +8,24 @@ export default Card = (props) => {
     const show = watchParty.show;
     console.log(show);
 
-    // jx789v - actually make this look pretty at some point
+    const imageWidth = Dimensions.get('window').width / 2.25;
+    const imageHeight = Math.round(imageWidth * 1.5);
 
     return (
-        <View style={styles.container}>
+        <View style={[{width: imageWidth}, styles.container]}>
             <TouchableOpacity
                 onPress={props.onPress}
             >
                 <Image
-                    style={styles.image}
+                    style={{ width: imageWidth, height: imageHeight }}
                     resizeMode='contain'
-                    source={{uri: show.imageUrl}}
+                    source={{ uri: show.imageUrl }}
                 />
-                <Text style={styles.datetime}>
+                <View>
+                    <Text style={[{width: imageWidth}, styles.datetime]}>
                     {`${watchParty.date} at ${watchParty.time}`}
                 </Text>
+                </View>
             </TouchableOpacity>
         </View>
     );
@@ -30,18 +33,19 @@ export default Card = (props) => {
 
 const styles = StyleSheet.create({
     container: {
+        marginLeft: 10,
+        marginRight: 10,
         marginTop: 12,
         backgroundColor: '#000',
         elevation: 4, // for android shadow.
-        flex: 1
+        justifyContent: 'flex-start'
     },
     image: {
-        width: 342, //comeback
-        height: 513,
         alignSelf: 'center'
     },
     datetime: {
-        fontSize: 16,
+        paddingLeft: 5,
+        fontSize: 22,
         color: '#fff'
     }
 });

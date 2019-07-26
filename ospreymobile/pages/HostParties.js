@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, ScrollView } from 'react-native';
 import { WatchParty } from '../src/model/WatchParty';
 import { Show } from '../src/model/Show';
 import Card from '../src/common/Card';
+import { ATT_BLUE } from '../src/constants/Colors';
 
 export default class HostParties extends Component {
 
@@ -56,29 +57,22 @@ export default class HostParties extends Component {
   }
 
   render() {
-    const windowWidth = Dimensions.get("window").width;
 
     return (
-      <View style={styles.container}>
-        {this.state.hostParties.map((hostParty) => this.renderCard(hostParty))}
-
-        {/* 
-        <Text>Host Parties Page!</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('HostPartiesDetails')}
-        /> 
-        */}
-      </View>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          {this.state.hostParties.map((hostParty) => this.renderCard(hostParty))}
+        </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = new StyleSheet.create({
   container: {
-    flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20
+    flexDirection: 'row',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignSelf: 'center'
   }
 });
