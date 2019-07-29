@@ -46,7 +46,6 @@ class MainActivity : Activity() {
 
     private fun setPartiesList(partiesResponse: List<PartiesResponse>){
         WatchPartyList.setupPartyList(partiesResponse)
-        //updateListView("party")
     }
 
     private fun setShowsList(showsResponse: List<ShowsResponse>){

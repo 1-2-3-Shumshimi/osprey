@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.ospreytv.R
 import com.example.ospreytv.models.Show
+import com.example.ospreytv.views.PartyCardView
 import kotlin.properties.Delegates
 
 /**
@@ -35,7 +36,7 @@ class CardPresenter : Presenter() {
     private var sSelectedBackgroundColor: Int by Delegates.notNull()
     private var sDefaultBackgroundColor: Int by Delegates.notNull()
 
-    override fun onCreateViewHolder(parent: ViewGroup): Presenter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
         Log.d(TAG, "onCreateViewHolder")
 
         sDefaultBackgroundColor = ContextCompat.getColor(parent.context,
@@ -56,10 +57,10 @@ class CardPresenter : Presenter() {
         cardView.isFocusable = true
         cardView.isFocusableInTouchMode = true
         updateCardBackgroundColor(cardView, false)
-        return Presenter.ViewHolder(cardView)
+        return ViewHolder(cardView)
     }
 
-    override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
         val movie = item as Show
         val cardView = viewHolder.view as ImageCardView
 
@@ -79,7 +80,7 @@ class CardPresenter : Presenter() {
         }
     }
 
-    override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) {
+    override fun onUnbindViewHolder(viewHolder: ViewHolder) {
         Log.d(TAG, "onUnbindViewHolder")
         val cardView = viewHolder.view as ImageCardView
         // Remove references to images so that the garbage collector can free up memory

@@ -60,6 +60,7 @@ import com.example.ospreytv.data.ShowList
 import com.example.ospreytv.data.WatchPartyList
 import com.example.ospreytv.models.Show
 import com.example.ospreytv.viewPresenters.CardPresenter
+import com.example.ospreytv.viewPresenters.PartyCardPresenter
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -74,6 +75,7 @@ class MainFragment : BrowseFragment() {
     private var mBackgroundUri: String? = null
     private val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
     private val cardPresenter = CardPresenter()
+    private val partyCardPresenter = PartyCardPresenter()
     private var mlocalBroadcastReceiver = LocalBroadcastReceiver()
 
     inner class LocalBroadcastReceiver: BroadcastReceiver(){
@@ -81,8 +83,6 @@ class MainFragment : BrowseFragment() {
             val eventName = intent?.getStringExtra("Event")
             if(eventName == "show"){
                 loadShows()
-            }
-            if(eventName == "party"){
                 loadParties()
             }
         }
@@ -258,23 +258,20 @@ class MainFragment : BrowseFragment() {
         private val BACKGROUND_UPDATE_DELAY = 300
         private val GRID_ITEM_WIDTH = 200
         private val GRID_ITEM_HEIGHT = 200
-        private val NUM_ROWS = 2
     }
 
     fun loadParties(){
         val hostList = WatchPartyList.list
-        val hostHeader = HeaderItem(NUM_ROWS.toLong(), "Watch Parties")
-        val listRowAdapter = ArrayObjectAdapter(cardPresenter)
+        val listRowAdapter = ArrayObjectAdapter(partyCardPresenter)
         for (j in 0 until hostList.size) {
             listRowAdapter.add(hostList[j])
         }
+        val hostHeader = HeaderItem(0, WatchPartyList.MOVIE_CATEGORY[0])
         rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
     }
 
     fun loadShows(){
         val browseList = ShowList.LIST
-        // Browse LIST
-        Collections.shuffle(browseList)
         val listRowAdapter1 = ArrayObjectAdapter(cardPresenter)
         for (j in 0 until browseList.size) {
             listRowAdapter1.add(browseList[j])

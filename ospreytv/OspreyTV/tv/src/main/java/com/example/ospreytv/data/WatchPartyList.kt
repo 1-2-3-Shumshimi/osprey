@@ -1,42 +1,37 @@
 package com.example.ospreytv.data
 
 import com.example.ospreytv.models.Party
+import com.example.ospreytv.models.Show
 import com.example.ospreytv.models.backend.PartiesResponse
-
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
 
 object WatchPartyList {
     private var partyList =  ArrayList<Party>()
+    private var partyShowList =  ArrayList<Show>()
     val MOVIE_CATEGORY = arrayOf(
         "Watch Parties"
     )
 
     fun setupPartyList(list: List<PartiesResponse>){
-        println("HERE $list")
         for(party in list){
-            partyList.add(Party(party.id, party.showId, party.data, party.time))
+            partyList.add(Party(party.id, party.showId, party.date, party.time))
+            val showList = ShowList.LIST
+            for(i in 0 until showList.size){
+                if(showList[i].id == party.showId){
+                    showList[i].time = party.time
+                    showList[i].date = party.date
+                    partyShowList.add(showList[i])
+                }
+            }
         }
     }
 
 
-    val list: List<Party> by lazy {
+    val list: List<Show> by lazy {
         getParties()
     }
 
-    private fun getParties(): List<Party> {
-        return partyList
+    private fun getParties(): List<Show> {
+        return partyShowList
     }
 
 }

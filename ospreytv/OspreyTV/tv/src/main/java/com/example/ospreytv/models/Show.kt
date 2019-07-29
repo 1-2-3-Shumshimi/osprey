@@ -25,7 +25,9 @@ data class Show(
     var description: String? = null,
     var imageUrl: String? = null,
     var year: String? = null,
-    var genre: String? = null
+    var genre: String? = null,
+    var time: String? = null,
+    var date: String? = null
 ) : Serializable {
 
     override fun toString(): String {
