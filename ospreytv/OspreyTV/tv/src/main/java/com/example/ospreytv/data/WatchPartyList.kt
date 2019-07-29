@@ -27,10 +27,11 @@ object WatchPartyList {
 
 
     val list: List<Show> by lazy {
-        getParties()
+        getSortedParties()
     }
 
-    private fun getParties(): List<Show> {
+    private fun getSortedParties(): List<Show> {
+        partyShowList.sortBy { it.date }
         return partyShowList
     }
 
