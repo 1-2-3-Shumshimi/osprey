@@ -22,6 +22,8 @@ import com.example.ospreytv.R
 import com.example.ospreytv.activities.BrowseErrorActivity
 import com.example.ospreytv.activities.DetailsActivity
 import com.example.ospreytv.activities.WatchPartyScheduleActivity
+import com.example.ospreytv.data.WatchPartyList
+import com.example.ospreytv.viewPresenters.PartyCardPresenter
 import java.util.*
 
 class WatchPartyScheduleFragment: BrowseFragment(){
@@ -31,6 +33,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
     private var mBackgroundUri: String? = null
+    val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -40,7 +43,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
 
         setupUIElements()
 
-        loadRows()
+        //loadRows()
 
         setupEventListeners()
     }
@@ -51,13 +54,19 @@ class WatchPartyScheduleFragment: BrowseFragment(){
         mBackgroundTimer?.cancel()
     }
 
-    private fun loadRows(){
-        val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
-        val cardPresenter = CardPresenter()
+    private fun loadRows(monthlyList: List<Show>){
+        //todo will need to reload rows for each month or something idk
+        val partyCardPresenter = PartyCardPresenter()
+        val listRowAdapter = ArrayObjectAdapter(partyCardPresenter)
 
+        for (j in 0 until monthlyList.size) {
+            listRowAdapter.add(monthlyList[j])
+        }
 
-        //add junk here
-
+        val month = monthlyList[0].date!!.split("/")[0]
+        val monthInt  = month as Int
+        val hostHeader = HeaderItem(0, WatchPartyList.MONTH[monthInt-1])
+        rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
 
         adapter = rowsAdapter
     }
@@ -84,13 +93,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
             rowViewHolder: RowPresenter.ViewHolder,
             row: Row
         ) {
-
             if (item is Show) {
-                if(item.title.equals("SEE ALL")){
-                    //start monthly view activity
-                    val intent = Intent(activity, WatchPartyScheduleActivity::class.java)
-                    activity.startActivity(intent)
-                } else {
                     Log.d(TAG, "Item: $item")
                     val intent = Intent(activity, DetailsActivity::class.java)
                     intent.putExtra(DetailsActivity.MOVIE, item)
@@ -102,14 +105,6 @@ class WatchPartyScheduleFragment: BrowseFragment(){
                     )
                         .toBundle()
                     activity.startActivity(intent, bundle)
-                }
-            } else if (item is String) {
-                if (item.contains(getString(R.string.error_fragment))) {
-                    val intent = Intent(activity, BrowseErrorActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(activity, item, Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }
