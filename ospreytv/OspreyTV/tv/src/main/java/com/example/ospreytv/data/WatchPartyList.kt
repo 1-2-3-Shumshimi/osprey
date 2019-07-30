@@ -8,8 +8,8 @@ object WatchPartyList {
     private var partyList =  ArrayList<Party>()
     private var partyShowList =  ArrayList<Show>()
     val MONTH = arrayOf(
-        "Janurary",
-        "Feburary",
+        "January",
+        "February",
         "March",
         "April",
         "May",
@@ -22,18 +22,11 @@ object WatchPartyList {
         "December"
     )
 
-    fun setupPartyList(list: List<PartiesResponse>){
+    fun setupPartyList(list: List<PartiesResponse>): ArrayList<Party>{
         for(party in list){
             partyList.add(Party(party.id, party.showId, party.date, party.time))
-            val showList = ShowList.LIST
-            for(i in 0 until showList.size){
-                if(showList[i].id == party.showId){
-                    showList[i].time = party.time
-                    showList[i].date = party.date
-                    partyShowList.add(showList[i])
-                }
-            }
         }
+        return partyList
     }
 
 
@@ -42,7 +35,19 @@ object WatchPartyList {
     }
 
     private fun getSortedParties(): List<Show> {
+        val showList = ShowList.LIST
+        for(party in partyList) {
+            for (i in 0 until showList.size) {
+                if (showList[i].id == party.showID) {
+                    showList[i].time = party.time
+                    showList[i].date = party.date
+                    partyShowList.add(showList[i])
+                }
+            }
+        }
+        partyShowList.add(Show(99999, "SEE ALL", "See All Watch Parties", null, null, null, "0", null))
         partyShowList.sortBy { it.date }
+
         return partyShowList
     }
 

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 import com.example.ospreytv.R
@@ -53,10 +52,6 @@ class PartyCardPresenter : Presenter() {
             cardView.dateView.text = show.date
             cardView.timeView.text = show.time
 
-//            cardView.setMainImageDimensions(
-//                CARD_WIDTH,
-//                CARD_HEIGHT
-//            )
             Glide.with(viewHolder.view.context)
                 .load(show.imageUrl)
                 .centerCrop()
@@ -67,10 +62,10 @@ class PartyCardPresenter : Presenter() {
 
     override fun onUnbindViewHolder(viewHolder: ViewHolder) {
         Log.d(TAG, "onUnbindViewHolder")
-        val cardView = viewHolder.view as ImageCardView
+        val cardView = viewHolder.view as PartyCardView
         // Remove references to images so that the garbage collector can free up memory
-        cardView.badgeImage = null
-        cardView.mainImage = null
+//        cardView.badgeImage = null
+//        cardView.mainImage = null
     }
 
     private fun updateCardBackgroundColor(view: ImageView, selected: Boolean) {

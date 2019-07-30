@@ -43,7 +43,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
 
         setupUIElements()
 
-        //loadRows()
+        loadRows()
 
         setupEventListeners()
     }
