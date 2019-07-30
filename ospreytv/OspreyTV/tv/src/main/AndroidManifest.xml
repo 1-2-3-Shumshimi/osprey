@@ -31,10 +31,12 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DetailsActivity"/>
+        <activity android:name=".activities.DetailsActivity"
+                  android:screenOrientation="landscape"/>
         <activity android:name=".activities.PlaybackActivity"/>
         <activity android:name=".activities.BrowseErrorActivity"/>
         <activity android:name=".activities.WatchPartyScheduleActivity"
+                  android:screenOrientation="landscape"
                   android:theme="@style/Theme.Leanback"/>
     </application>
 

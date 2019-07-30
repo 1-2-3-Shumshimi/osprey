@@ -24,7 +24,9 @@ import com.example.ospreytv.activities.DetailsActivity
 import com.example.ospreytv.activities.WatchPartyScheduleActivity
 import com.example.ospreytv.data.WatchPartyList
 import com.example.ospreytv.viewPresenters.PartyCardPresenter
+import com.example.ospreytv.views.PartyCardView
 import java.util.*
+import kotlin.collections.ArrayList
 
 class WatchPartyScheduleFragment: BrowseFragment(){
     private val mHandler = Handler()
@@ -54,27 +56,49 @@ class WatchPartyScheduleFragment: BrowseFragment(){
         mBackgroundTimer?.cancel()
     }
 
-    private fun loadRows(monthlyList: List<Show>){
-        //todo will need to reload rows for each month or something idk
+    private fun loadRows(){
         val partyCardPresenter = PartyCardPresenter()
-        val listRowAdapter = ArrayObjectAdapter(partyCardPresenter)
 
-        for (j in 0 until monthlyList.size) {
-            listRowAdapter.add(monthlyList[j])
+        val sortedMonths = ArrayList<ArrayList<Show>>()
+        var currentList = ArrayList<Show>()
+        var currentMonth = WatchPartyList.list[1].date!!.split("/")[0]
+        for(party in WatchPartyList.list){
+            if(party.title == "SEE ALL"){
+                //do nothing
+            } else {
+                val partyMonth = party.date!!.split("/")[0]
+                if (partyMonth == currentMonth) {
+                    currentList.add(party)
+                    if(party == WatchPartyList.list[WatchPartyList.list.size-1]){
+                        sortedMonths.add(currentList)
+                    }
+                } else {
+                    //add arraylist to list
+                    sortedMonths.add(currentList)
+                    //update current month
+                    currentMonth = partyMonth
+                    //make new arraylist for next set of months
+                    val temp = ArrayList<Show>()
+                    currentList = temp
+
+                }
+            }
         }
 
-        val month = monthlyList[0].date!!.split("/")[0]
-        val monthInt  = month as Int
-        val hostHeader = HeaderItem(0, WatchPartyList.MONTH[monthInt-1])
-        rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
-
+        for (list in sortedMonths) {
+            val listRowAdapter = ArrayObjectAdapter(partyCardPresenter)
+            val month = list[0].date!!.split("/")[0].toInt()
+            val hostHeader = HeaderItem(0, WatchPartyList.MONTH[month-1])
+            for(j in 0 until list.size) listRowAdapter.add(list[j])
+            rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
+        }
         adapter = rowsAdapter
     }
 
     private fun setupUIElements() {
-        title = getString(R.string.browse_title)
+        title = getString(R.string.watch_party_title)
         // over title
-        headersState = BrowseFragment.HEADERS_ENABLED
+        headersState = HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true
 
         // set fastLane (or headers) background color
@@ -100,7 +124,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
 
                     val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         activity,
-                        (itemViewHolder.view as ImageCardView).mainImageView,
+                        (itemViewHolder.view as PartyCardView).imageView,
                         DetailsActivity.SHARED_ELEMENT_NAME
                     )
                         .toBundle()
@@ -167,10 +191,6 @@ class WatchPartyScheduleFragment: BrowseFragment(){
         private val TAG = "WatchPartyFragment"
 
         private val BACKGROUND_UPDATE_DELAY = 300
-        private val GRID_ITEM_WIDTH = 200
-        private val GRID_ITEM_HEIGHT = 200
-        private val NUM_ROWS = 2
-        private val NUM_COLS = 6
     }
 
 }

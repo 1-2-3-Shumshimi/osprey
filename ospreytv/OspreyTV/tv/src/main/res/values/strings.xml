@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OspreyTV</string>
     <string name="browse_title"><![CDATA[Dashboard]]></string>
+    <string name="watch_party_title"><![CDATA[Watch Parties]]></string>
     <string name="related_movies">Related Videos</string>
     <string name="grid_view">Notifications</string>
     <string name="error_fragment">Profile</string>

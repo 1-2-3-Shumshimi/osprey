@@ -17,7 +17,7 @@ export default class WatchParties extends Component {
     this.getData();
   }
 
-  getData() {
+ getData() {
 
     fetch('https://osprey-931cd.firebaseio.com/parties.json', { method: 'GET' }).then(async (partiesResponse) => {
       let parties = await partiesResponse.json();
@@ -43,7 +43,7 @@ export default class WatchParties extends Component {
         this.setState({ watchParties: watchParties });
       });
     });
-  }
+  } 
 
   renderCard(watchParty) {
     return (

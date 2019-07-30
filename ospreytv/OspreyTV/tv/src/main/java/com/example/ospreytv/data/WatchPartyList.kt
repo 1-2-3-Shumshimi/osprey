@@ -45,8 +45,8 @@ object WatchPartyList {
                 }
             }
         }
-        partyShowList.add(Show(99999, "SEE ALL", "See All Watch Parties", null, null, null, "0", null))
-        partyShowList.sortBy { it.date }
+        partyShowList.add(Show(99999, "SEE ALL", "See All Watch Parties", "https://3alnet.com/bundles/_themes/dp/3alnet-theme/dpproductimport/images/see-all.jpg", null, null, null, "0"))
+        partyShowList.sortBy { it.date!!.split("/")[0].toInt() }
 
         return partyShowList
     }

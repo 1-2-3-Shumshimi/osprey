@@ -55,10 +55,12 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.example.ospreytv.*
 import com.example.ospreytv.activities.BrowseErrorActivity
 import com.example.ospreytv.activities.DetailsActivity
+import com.example.ospreytv.activities.MainActivity
 import com.example.ospreytv.activities.WatchPartyScheduleActivity
 import com.example.ospreytv.data.ShowList
 import com.example.ospreytv.data.WatchPartyList
 import com.example.ospreytv.models.Show
+import com.example.ospreytv.services.OspreyService
 import com.example.ospreytv.viewPresenters.CardPresenter
 import com.example.ospreytv.viewPresenters.PartyCardPresenter
 
