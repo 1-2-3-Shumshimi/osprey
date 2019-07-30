@@ -31,6 +31,20 @@ class FirebaseSvc {
     return firebase.database().ref('messages');
   }
 
+  watchPartyRef() {
+    return firebase.database().ref('parties');
+  }
+
+  addWatchParty = (date, show_id, time) => {
+    const myParty = {
+      date: date,
+      show_id: show_id,
+      time: time,
+      id: 9999,
+    };
+    this.watchPartyRef().push(myParty);
+  }
+
   refOn = callback => {
     this.ref()
       .limitToLast(20)
@@ -39,6 +53,10 @@ class FirebaseSvc {
 
   refOff() {
     this.ref().off();
+  }
+
+  watchPartyRefOff() {
+    this.watchPartyRef().off();
   }
 
   timestamp(){

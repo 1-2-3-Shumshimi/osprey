@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {  View,  Text, TextInput, Image } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
+import firebaseSvc from '../src/FirebaseSvc';
 
 export default class CreateWatchParty extends Component {
     constructor(props) {
@@ -38,6 +39,20 @@ export default class CreateWatchParty extends Component {
         );
     }
 
+    formateDate = (timeString) => {
+        let formattedDate = null;
+        if (parseInt(timeString.substring(0,2)) > 12){
+            formattedDate = (parseInt(timeString.substring(0,2)) - 12).toString() + timeString.substring(2,5) + " PM";
+        }else if (parseInt(timeString.substring(0,2)) === 12){
+            formattedDate = parseInt(timeString.substring(0,2)).toString() + timeString.substring(2,5) + " PM";
+        }else if (parseInt(timeString.substring(0,2)) === 0){
+            formattedDate = "12" + timeString.substring(2,5) + " AM";
+        }else{
+            formattedDate = parseInt(timeString.substring(0,2)).toString() + timeString.substring(2,5) + " AM";
+        }
+        return formattedDate;
+    }
+
     hideDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: false });
     }
@@ -52,8 +67,24 @@ export default class CreateWatchParty extends Component {
     handleTimePicked = time => {
         //console.log("A date has been picked: ", date);
         let convertedTime = time.toLocaleTimeString("en-US");
+        convertedTime = this.formateDate(convertedTime);
         this.setState({ pickedTime: convertedTime });
         this.hideDateTimePicker();
+    }
+
+    submitParty = (date, time, show_id) => {
+        if(!date){
+            alert("Please enter a date.");
+        }else if (!time){
+            alert("Please enter a time.")
+        }else if (typeof(show_id) != 'number') {
+            alert("ERROR - Show ID is null.")
+        }
+        firebaseSvc.addWatchParty(date, show_id, time);
+    }
+
+    componentWillUnmount = () => {
+        firebaseSvc.watchPartyRefOff();
     }
 
     render() {
@@ -103,6 +134,7 @@ export default class CreateWatchParty extends Component {
                 <DateTimePicker
                     isVisible={this.state.isDateTimePickerVisible}
                     onConfirm={this.state.dateTimeFunctionHandler}
+                    minimumDate={new Date()}
                     onCancel={this.hideDateTimePicker}
                     mode={this.state.dateTimePickerMode}
                     is24Hour={false}
@@ -118,7 +150,7 @@ export default class CreateWatchParty extends Component {
                 <Button
                     title="Submit"
                     onPress={()=>{
-                        alert("Event Created Successfully! Enjoy!");
+                        this.submitParty(this.state.pickedDate, this.state.pickedTime, this.state.currentShow.showId);
                         this.props.navigation.goBack(null);
                     }}
                 />

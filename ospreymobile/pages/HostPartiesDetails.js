@@ -62,7 +62,6 @@ export default class HostPartiesDetails extends Component {
           />
           <Button 
             title="Start"
-            onPress={() => {}}
           />
         </View>
       </View>

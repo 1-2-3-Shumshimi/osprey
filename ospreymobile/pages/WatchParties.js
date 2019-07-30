@@ -20,7 +20,8 @@ export default class WatchParties extends Component {
   getData() {
 
     fetch('https://osprey-931cd.firebaseio.com/parties.json', { method: 'GET' }).then(async (partiesResponse) => {
-      const parties = await partiesResponse.json();
+      let parties = await partiesResponse.json();
+      //let parties = Object.keys(json_parties).map(key => json_parties[key]);
       console.log(parties);
       fetch('https://osprey-931cd.firebaseio.com/shows.json', { method: 'GET' }).then(async (showsResponse) => {
         const shows = await showsResponse.json();
