@@ -35,6 +35,7 @@
         <activity android:name=".activities.PlaybackActivity"/>
         <activity android:name=".activities.BrowseErrorActivity"/>
         <activity android:name=".activities.WatchPartyScheduleActivity"
+                  android:screenOrientation="landscape"
                   android:theme="@style/Theme.Leanback"/>
     </application>
 
