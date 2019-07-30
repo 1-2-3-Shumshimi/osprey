@@ -47,10 +47,11 @@ export default class BrowseDetails extends Component {
         <View style={[{flex: 2, flexDirection: "row", justifyContent: "center", alignItems: "center"}, styles.container]}>
           <Button 
             title="Create Party"
-            // onPress={() => 
-            //   ()
-            //   //this.props.navigation.navigate('WatchPartiesChat')
-            // }
+            onPress={() => 
+              this.props.navigation.navigate('CreateWatchParty', {
+                show: watchParty.show
+            })
+            }
           />
         </View>
       </View>

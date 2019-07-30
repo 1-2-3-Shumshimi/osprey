@@ -39,7 +39,7 @@ export default class WatchPartiesChat extends Component {
     //console.log("LOGGED IN ID:", loggedInID, !loggedInID);
     if (!loggedInID){
       alert('Please log in before trying to chat.');
-      this.props.navigation.navigate('WatchPartiesDetails');
+      this.props.navigation.goBack(null);
     }else{
       firebaseSvc.refOn(message => 
         this.setState(previousState => ({
