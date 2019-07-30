@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  View, Text, Image, Dimensions, StyleSheet, Button } from 'react-native';
+import {  View, Text, Image, Dimensions, StyleSheet, Button, Linking } from 'react-native';
 
 export default class HostPartiesDetails extends Component {
 
@@ -62,7 +62,7 @@ export default class HostPartiesDetails extends Component {
           />
           <Button 
             title="Start"
-            onPress={() => {}}
+            onPress={ ()=>{ Linking.openURL('https://www.netflix.com/')}} 
           />
         </View>
       </View>
