@@ -264,9 +264,10 @@ class MainFragment : BrowseFragment() {
         val hostList = WatchPartyList.list
         val listRowAdapter = ArrayObjectAdapter(partyCardPresenter)
         for (j in 0 until hostList.size) {
+            println("PARTY CARD")
             listRowAdapter.add(hostList[j])
         }
-        val hostHeader = HeaderItem(0, WatchPartyList.MOVIE_CATEGORY[0])
+        val hostHeader = HeaderItem(0, ShowList.MOVIE_CATEGORY[1])
         rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
     }
 

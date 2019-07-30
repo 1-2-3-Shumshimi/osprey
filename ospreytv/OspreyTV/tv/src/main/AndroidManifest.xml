@@ -23,7 +23,8 @@
                 android:icon="@drawable/app_icon_your_company"
                 android:label="@string/app_name"
                 android:logo="@drawable/app_icon_your_company"
-                android:screenOrientation="landscape">
+                android:screenOrientation="landscape"
+                android:theme="@style/Theme.Leanback">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -33,7 +34,8 @@
         <activity android:name=".activities.DetailsActivity"/>
         <activity android:name=".activities.PlaybackActivity"/>
         <activity android:name=".activities.BrowseErrorActivity"/>
-        <activity android:name=".activities.WatchPartyScheduleActivity"/>
+        <activity android:name=".activities.WatchPartyScheduleActivity"
+                  android:theme="@style/Theme.Leanback"/>
     </application>
 
 </manifest>

@@ -21,7 +21,8 @@ object ShowList {
 
     private var showList =  ArrayList<Show>()
     val MOVIE_CATEGORY = arrayOf(
-        "Browse"
+        "Browse",
+        "Watch Parties"
     )
 
     fun setupShowList(list: List<ShowsResponse>){
