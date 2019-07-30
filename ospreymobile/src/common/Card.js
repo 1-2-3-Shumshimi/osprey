@@ -23,7 +23,7 @@ export default Card = (props) => {
                 />
                 <View>
                     <Text style={[{width: imageWidth}, styles.datetime]}>
-                    {`${watchParty.date} at ${watchParty.time}`}
+                    { watchParty.date ? `${watchParty.date} at ${watchParty.time}` : show.title.trim() }
                 </Text>
                 </View>
             </TouchableOpacity>
