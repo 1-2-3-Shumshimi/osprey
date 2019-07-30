@@ -48,7 +48,9 @@ export default class WatchParties extends Component {
     return (
       <Card
         watchParty={watchParty}
-        onPress={() => this.props.navigation.navigate('WatchPartiesDetails')}
+        onPress={() => this.props.navigation.navigate('WatchPartiesDetails', {
+          watchParty: watchParty,
+        })}
       />
     );
   }

@@ -7,8 +7,19 @@ import com.example.ospreytv.models.backend.PartiesResponse
 object WatchPartyList {
     private var partyList =  ArrayList<Party>()
     private var partyShowList =  ArrayList<Show>()
-    val MOVIE_CATEGORY = arrayOf(
-        "Watch Parties"
+    val MONTH = arrayOf(
+        "Janurary",
+        "Feburary",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
     )
 
     fun setupPartyList(list: List<PartiesResponse>){
@@ -27,10 +38,11 @@ object WatchPartyList {
 
 
     val list: List<Show> by lazy {
-        getParties()
+        getSortedParties()
     }
 
-    private fun getParties(): List<Show> {
+    private fun getSortedParties(): List<Show> {
+        partyShowList.sortBy { it.date }
         return partyShowList
     }
 
