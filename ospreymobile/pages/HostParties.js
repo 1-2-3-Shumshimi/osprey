@@ -51,7 +51,9 @@ export default class HostParties extends Component {
     return (
       <Card
         watchParty={hostParty}
-        onPress={() => this.props.navigation.navigate('HostPartiesDetails')}
+        onPress={() => this.props.navigation.navigate('HostPartiesDetails', {
+          hostParty: hostParty,
+        })}
       />
     );
   }
