@@ -54,19 +54,37 @@ class WatchPartyScheduleFragment: BrowseFragment(){
         mBackgroundTimer?.cancel()
     }
 
-    private fun loadRows(monthlyList: List<Show>){
-        //todo will need to reload rows for each month or something idk
+    private fun loadRows(){
         val partyCardPresenter = PartyCardPresenter()
         val listRowAdapter = ArrayObjectAdapter(partyCardPresenter)
 
-        for (j in 0 until monthlyList.size) {
-            listRowAdapter.add(monthlyList[j])
+        val sortedMonths = ArrayList<ArrayList<Show>>()
+        var currentList = ArrayList<Show>()
+        var currentMonth = WatchPartyList.list[0].date!!.split("/")[0]
+        for(party in WatchPartyList.list){
+            val partyMonth = party.date!!.split("/")[0]
+            if(partyMonth == currentMonth){
+                currentList.add(party)
+            } else {
+                //add arraylist to list
+                sortedMonths.add(currentList)
+                //update current month
+                currentMonth = partyMonth
+                //make new arraylist for next set of months
+                currentList = ArrayList()
+            }
         }
 
-        val month = monthlyList[0].date!!.split("/")[0]
-        val monthInt  = month as Int
-        val hostHeader = HeaderItem(0, WatchPartyList.MONTH[monthInt-1])
-        rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
+        println("Sorted Months: $sortedMonths")
+
+        for (list in sortedMonths) {
+            val month = list[0].date!!.split("/")[0] as Int
+            val hostHeader = HeaderItem(0, WatchPartyList.MONTH[month-1])
+            for(j in 0 until list.size) listRowAdapter.add(list[j])
+
+            rowsAdapter.add(ListRow(hostHeader, listRowAdapter))
+        }
+
 
         adapter = rowsAdapter
     }
