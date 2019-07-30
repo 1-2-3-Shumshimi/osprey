@@ -73,7 +73,6 @@ class WatchPartyScheduleFragment: BrowseFragment(){
                         sortedMonths.add(currentList)
                     }
                 } else {
-                    println("HERE ${partyMonth}")
                     //add arraylist to list
                     sortedMonths.add(currentList)
                     //update current month
@@ -81,10 +80,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
                     //make new arraylist for next set of months
                     val temp = ArrayList<Show>()
                     currentList = temp
-//                    if(party == WatchPartyList.list[WatchPartyList.list.size-1]){
-//                        currentList.add(party)
-//                        sortedMonths.add(currentList)
-//                    }
+
                 }
             }
         }

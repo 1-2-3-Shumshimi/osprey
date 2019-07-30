@@ -134,27 +134,44 @@ class VideoDetailsFragment : DetailsFragment() {
 
         val actionAdapter = ArrayObjectAdapter()
 
-        actionAdapter.add(
-            Action(
-                ACTION_WATCH_TRAILER,
-                resources.getString(R.string.watch_trailer_1),
-                resources.getString(R.string.watch_trailer_2)
+        if(mSelectedShow?.date.isNullOrEmpty()) {
+            actionAdapter.add(
+                Action(
+                    ACTION_WATCH_TRAILER,
+                    resources.getString(R.string.watch_trailer_1),
+                    resources.getString(R.string.watch_trailer_2)
+                )
             )
-        )
-        actionAdapter.add(
-            Action(
-                ACTION_RENT,
-                resources.getString(R.string.rent_1),
-                resources.getString(R.string.rent_2)
+            actionAdapter.add(
+                Action(
+                    ACTION_RENT,
+                    resources.getString(R.string.rent_1),
+                    resources.getString(R.string.rent_2)
+                )
             )
-        )
-        actionAdapter.add(
-            Action(
-                ACTION_BUY,
-                resources.getString(R.string.buy_1),
-                resources.getString(R.string.buy_2)
+            actionAdapter.add(
+                Action(
+                    ACTION_BUY,
+                    resources.getString(R.string.buy_1),
+                    resources.getString(R.string.buy_2)
+                )
             )
-        )
+        } else {
+            actionAdapter.add(
+                Action(
+                    ACTION_WATCH_TRAILER,
+                    "Join Watch",
+                    "Party"
+                )
+            )
+            actionAdapter.add(
+                Action(
+                    ACTION_RENT,
+                    "Set",
+                    "Reminder"
+                )
+            )
+        }
         row.actionsAdapter = actionAdapter
 
         mAdapter.add(row)
