@@ -73,6 +73,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
                         sortedMonths.add(currentList)
                     }
                 } else {
+                    println("HERE ${partyMonth}")
                     //add arraylist to list
                     sortedMonths.add(currentList)
                     //update current month
@@ -80,6 +81,10 @@ class WatchPartyScheduleFragment: BrowseFragment(){
                     //make new arraylist for next set of months
                     val temp = ArrayList<Show>()
                     currentList = temp
+//                    if(party == WatchPartyList.list[WatchPartyList.list.size-1]){
+//                        currentList.add(party)
+//                        sortedMonths.add(currentList)
+//                    }
                 }
             }
         }
@@ -95,9 +100,9 @@ class WatchPartyScheduleFragment: BrowseFragment(){
     }
 
     private fun setupUIElements() {
-        title = getString(R.string.browse_title)
+        title = getString(R.string.watch_party_title)
         // over title
-        headersState = BrowseFragment.HEADERS_ENABLED
+        headersState = HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true
 
         // set fastLane (or headers) background color
@@ -123,7 +128,7 @@ class WatchPartyScheduleFragment: BrowseFragment(){
 
                     val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         activity,
-                        (itemViewHolder.view as PartyCardView).mainImageView,
+                        (itemViewHolder.view as PartyCardView).imageView,
                         DetailsActivity.SHARED_ELEMENT_NAME
                     )
                         .toBundle()
