@@ -20,10 +20,12 @@ import WatchPartiesChat from './pages/WatchPartiesChat';
 import HostParties from './pages/HostParties';
 import HostPartiesDetails from './pages/HostPartiesDetails';
 import Profile from './pages/Profile';
+import CreateWatchParty from './pages/CreateWatchParty';
 
 const BrowseStackNavigator = createStackNavigator({
   Browse: {screen: Browse},
   BrowseDetails: {screen: BrowseDetails},
+  CreateWatchParty: {screen: CreateWatchParty},
 },{
   initialRouteName: 'Browse',
   headerMode: 'none',
