@@ -18,8 +18,8 @@ export default class BrowseDetails extends Component {
     const imageHeight = Math.round(imageWidth * 1.5);
 
     return (
-      <View style={{ flex: 1 }}>
-        <View style={[{flex: 2, flexDirection: "row"}, styles.container]}>
+      <View style={[{ flex: 1 }, styles.container]}>
+        <View style={[{flex: 2, flexDirection: "row"}]}>
           <View>
             <Image
               style={{ width: imageWidth, height: imageHeight }}
@@ -39,12 +39,12 @@ export default class BrowseDetails extends Component {
             </Text>
           </View>
         </View>
-        <View style={[{flex: 2, margin: 20}, styles.container]}>
+        <View style={[{flex: 2,}]}>
           <Text style={{fontSize: 18}}>
             {watchParty.show.description}
           </Text>
         </View>
-        <View style={[{flex: 2, flexDirection: "row", justifyContent: "center", alignItems: "center"}, styles.container]}>
+        <View style={[{flex: 2, flexDirection: "row", justifyContent: "center", alignItems: "center"}]}>
           <Button 
             title="Create Party"
             onPress={() => 

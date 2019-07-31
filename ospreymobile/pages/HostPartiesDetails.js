@@ -19,8 +19,8 @@ export default class HostPartiesDetails extends Component {
     const imageHeight = Math.round(imageWidth * 1.5);
 
     return (
-      <View style={{ flex: 1 }}>
-        <View style={[{ flex: 2, flexDirection: "row" }, styles.container]}>
+      <View style={[{ flex: 1 }, styles.container]}>
+        <View style={[{ flex: 2, flexDirection: "row" }]}>
           <View>
             <Image
               style={{ width: imageWidth, height: imageHeight }}
@@ -37,7 +37,7 @@ export default class HostPartiesDetails extends Component {
             </Text>
           </View>
         </View>
-        <View style={[{ flex: 2, margin: 20 }, styles.container]}>
+        <View style={[{ flex: 2, }]}>
           <Text style={{ fontSize: 22 }}>
             {watchParty.show.title}
           </Text>
@@ -53,20 +53,44 @@ export default class HostPartiesDetails extends Component {
             {watchParty.show.description}
           </Text>
         </View>
-        <View style={[{ flex: 2, flexDirection: "row", justifyContent: "space-around", alignItems: "center" }, styles.container]}>
+        <View style={[{ flex: 1, flexDirection: "row", justifyContent: "space-around", alignItems: "center" }]}>
+
+          <Button
+            title="Play on This Device"
+            onPress={ ()=>{ Linking.openURL('http://www.netflix.com/') }} 
+          />
+          <Button
+            title="Play on AT&T TV"
+            onPress={ ()=>{ 
+              // const watchUrl = "http://www.netflix.com/";
+              // const intent = new Intent();
+              // intent.setData(ACTION_VIEW)
+              // intent.ACTION_VIEW;
+              // intent.setClassName("com.netflix.mediaclient", "com.netflix.mediaclient.ui.launch.UIWebViewActivity");
+              // intent.setData(Uri.parse(watchUrl));
+              // startActivity(intent);
+              // const url = 'nflx://www.netflix.com/title/70291117'
+              // AppLink.maybeOpenURL(url, { appName: 'Netflix', playStoreId: 'com.netflix.mediaclient' }).then(() => {
+              //   // do stuff
+              // })
+              // .catch((err) => {
+              //   alert("error");
+              // });
+
+              Linking.openURL('http://www.netflix.com/')
+            }} 
+          />
+        </View>
+        <View style={[{ flex: 1, flexDirection: "row", justifyContent: "space-around", alignItems: "center" }]}>
+          <Button
+            title='Remote'
+            onPress={() => { this.props.navigation.navigate('Remote') }}
+          />
           <Button
             title="Chat"
             onPress={() =>
               this.props.navigation.navigate('WatchPartiesChat')
             }
-          />
-          <Button
-            title="Start"
-            onPress={() => { Linking.openURL('https://www.netflix.com/') }}
-          />
-          <Button
-            title='Remote'
-            onPress={() => { this.props.navigation.navigate('Remote') }}
           />
         </View>
       </View>
