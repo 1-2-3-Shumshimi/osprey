@@ -21,6 +21,7 @@ import HostParties from './pages/HostParties';
 import HostPartiesDetails from './pages/HostPartiesDetails';
 import Profile from './pages/Profile';
 import CreateWatchParty from './pages/CreateWatchParty';
+import Remote from './pages/Remote';
 
 const BrowseStackNavigator = createStackNavigator({
   Browse: {screen: Browse},
@@ -43,6 +44,7 @@ const WatchPartiesStackNavigator = createStackNavigator({
 const HostPartiesStackNavigator = createStackNavigator({
   HostParties: {screen: HostParties},
   HostPartiesDetails: {screen: HostPartiesDetails},
+  Remote: {screen: Remote}
   //WatchPartiesChat: {screen: WatchPartiesChat}
 },{
   initialRouteName: 'HostParties',
