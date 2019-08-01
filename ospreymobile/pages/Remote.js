@@ -44,6 +44,15 @@ export default class Remote extends Component {
     render() {
         return (
             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <View style={{ marginBottom: 12, marginRight: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: '#000', height: 40, padding: 8, justifyContent: 'center' }}
+                        onPress={() =>
+                            this.props.navigation.navigate('WatchPartiesChat')
+                        }>
+                        <Text style={{ color: '#fff', fontSize: 22, alignSelf: 'center' }}>{'CHAT'}</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={{ marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <View style={{ marginLeft: 16 }}>
                         <Text style={{ fontSize: 36 }}>

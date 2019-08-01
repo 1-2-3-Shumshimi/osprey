@@ -44,8 +44,8 @@ const WatchPartiesStackNavigator = createStackNavigator({
 const HostPartiesStackNavigator = createStackNavigator({
   HostParties: {screen: HostParties},
   HostPartiesDetails: {screen: HostPartiesDetails},
-  Remote: {screen: Remote}
-  //WatchPartiesChat: {screen: WatchPartiesChat}
+  Remote: {screen: Remote},
+  WatchPartiesChat: {screen: WatchPartiesChat}
 },{
   initialRouteName: 'HostParties',
   headerMode: 'none',
